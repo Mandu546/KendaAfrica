@@ -1,5 +1,8 @@
 import { useParams } from "react-router-dom";
-
+import { hotels } from "../data/services/hotels";
+import { attractions } from "../data/services/attractions";
+import { bnbs } from "../data/services/bnbs";
+import { emergency } from "../data/services/emergency";
 import PlaceNavbar from "../components/PlaceNavbar";
 import MainLayout from "../layouts/MainLayout";
 import HorizontalSection from "../components/HorizontalSection";
@@ -20,45 +23,33 @@ import {
 
 export default function PlaceDetails() {
   const { placeName } = useParams();
+  const cityHotels = hotels.filter(
+  hotel => hotel.city === placeName
+);
+
+const cityAttractions = attractions.filter(
+  attraction => attraction.city === placeName
+);
+
+const cityBnbs = bnbs.filter(
+  bnb => bnb.city === placeName
+);
+
+const cityEmergency = emergency.filter(
+  item => item.city === placeName
+);
 
   // SAMPLE DATA
   // Later these will come from Django API
 
-  const attractions = [
-    {
-      id: 1,
-      name: "Hell's Gate",
-      image:
-        "https://images.unsplash.com/photo-1528127269322-539801943592",
-      description: "Beautiful national park.",
-    },
-    {
-      id: 2,
-      name: "Mt Longonot",
-      image:
-        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
-      description: "Amazing hiking experience.",
-    },
-  ];
+ 
 
-  const hotels = [
-    {
-      id: 1,
-      name: "Enashipai Resort",
-      image:
-        "https://images.unsplash.com/photo-1566073771259-6a8506099945",
-      description: "Luxury lakeside resort.",
-    },
-  ];
-
-  const bnbs = [];
   const restaurants = [];
   const nightlife = [];
   const gyms = [];
   const shopping = [];
   const transport = [];
   const hospitals = [];
-  const emergency = [];
 
   // SIDEBAR SERVICES
   const services = [
@@ -67,21 +58,21 @@ export default function PlaceDetails() {
       key: "attractions",
       title: "Tourist Attractions",
       icon: <FaTree />,
-      items: attractions,
+      items: cityAttractions,
     },
     {
       id: 2,
       key: "hotels",
       title: "Hotels",
       icon: <FaHotel />,
-      items: hotels,
+      items: cityHotels,   
     },
     {
       id: 3,
       key: "bnbs",
       title: "BNBs",
       icon: <FaBed />,
-      items: bnbs,
+      items: cityBnbs,
     },
     {
       id: 4,
@@ -130,7 +121,7 @@ export default function PlaceDetails() {
       key: "emergency",
       title: "Emergency",
       icon: <FaExclamationTriangle />,
-      items: emergency,
+      items: cityEmergency,
     },
   ];
 
