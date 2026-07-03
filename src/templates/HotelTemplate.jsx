@@ -5,7 +5,12 @@ import RelatedServices
 from "../components/RelatedServices";
 import ServiceMap
 from "../components/ServiceMap";
-
+import useFavorites
+from "../hooks/useFavorites";
+import useRecent
+from "../hooks/useRecent";
+import { useEffect }
+from "react";
 
 export default function HotelTemplate({
   service,
@@ -15,6 +20,21 @@ export default function HotelTemplate({
 
 const [currentImage, setCurrentImage] =
   useState(0);
+  
+const {
+  favorites,
+  isFavorite,
+  toggleFavorite,
+} = useFavorites();
+
+const {
+  addRecent,
+} = useRecent();
+
+useEffect(() => {
+  addRecent(service);
+}, []);
+
 const similarHotels = [
   {
     id: 2,
@@ -137,17 +157,24 @@ const similarHotels = [
   {/* ACTION BUTTONS */}
   <div className="flex flex-wrap gap-3 mt-6">
 
-    <button
-      className="
-        bg-red-500
-        text-white
-        px-4
-        py-2
-        rounded-lg
-      "
-    >
-      Save
-    </button>
+   <button
+  onClick={() =>
+    toggleFavorite(
+      service
+    )
+  }
+  className="
+    bg-red-500
+    text-white
+    px-4
+    py-2
+    rounded-lg
+  "
+>
+  {isFavorite(service)
+    ? "💚 Saved"
+    : "🤍 Save"}
+</button>
 
     <button
       className="

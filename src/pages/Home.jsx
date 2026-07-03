@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import { FaUserCircle, FaCog, FaSearch } from "react-icons/fa";
 import MainLayout from "../layouts/MainLayout";
+import useFavorites from "../hooks/useFavorites";
+import useRecent from "../hooks/useRecent";
+import HorizontalSection from "../components/HorizontalSection";
 
 import nairobiImg from "../assets/image/cities/nairobi.jpg";
 import mombasaImg from "../assets/image/cities/mombasa.jpg";
@@ -11,71 +14,52 @@ import dianiImg from "../assets/image/cities/Diani.jpg";
 import nanyukiImg from "../assets/image/cities/nanyuki.jpg";
 import eldoretImg from "../assets/image/cities/eldoret.jpg";
 import malindiImg from "../assets/image/cities/malindi.jpg";
+import cities from "../data/cities";
 
 export default function Home() {
 
-  const cities = [
-  {
-    name: "Nairobi",
-    description: "Kenya's vibrant capital city.",
-    image: nairobiImg,
-  },
-  {
-    name: "Mombasa",
-    description: "Historic coastal city with beautiful beaches.",
-    image: mombasaImg,
-  },
-  {
-    name: "Naivasha",
-    description: "Beautiful freshwater lake destination.",
-    image: naivashaImg,
-  },
-  {
-    name: "Nakuru",
-    description: "Home to flamingos and wildlife.",
-    image: nakuruImg,
-  },
-  {
-    name: "Kisumu",
-    description: "Largest city on Lake Victoria.",
-    image: kisumuImg,
-  },
-  {
-    name: "Diani",
-    description: "Famous white sand beach destination.",
-    image: dianiImg,
-  },
-  {
-    name: "Nanyuki",
-    description: "Gateway to Mount Kenya.",
-    image: nanyukiImg,
-  },
-  {
-    name: "Eldoret",
-    description: "Kenya's athletics capital.",
-    image: eldoretImg,
-  },
-  {
-    name: "Malindi",
-    description: "Historic coastal tourism town.",
-    image: malindiImg,
-  },
-];
+const { favorites } = useFavorites();
+
+const { recent } = useRecent();
+
+
+console.log(nairobiImg);
+console.log(cities);
 return (
   <MainLayout>
     <div className="bg-[#EEF7E8]">
 
       {/* NAVBAR */}
-      <nav className="flex items-center justify-between px-8 py-4">
-
+      <nav
+  className="
+    sticky
+    top-0
+    z-50
+    bg-[#EEF7E8]
+    flex
+    items-center
+    justify-between
+    px-4
+    md:px-8
+    py-4
+    shadow-sm
+  "
+>
         <div>
           <h1 className="text-3xl font-bold text-[#3D4F2B]">
             KendaAfrica
           </h1>
         </div>
 
-        <div className="relative w-[500px]">
-
+        <div
+  className="
+    relative
+    w-[150px]
+    sm:w-[250px]
+    md:w-[400px]
+    lg:w-[500px]
+  "
+>
           <FaSearch
             className="absolute left-4 top-4 text-gray-500"
           />
@@ -105,41 +89,49 @@ return (
       <section className="px-8 py-10">
 
         <div
-          className="
-          h-[450px]
-          rounded-3xl
-          bg-[#3D4F2B]
-          flex
-          items-center
-          justify-center
-          "
-        >
+  className="
+    min-h-[180px]
+    md:min-h-[320px]
+    lg:min-h-[420px]
+    rounded-3xl
+    bg-[#3D4F2B]
+    flex
+    items-center
+    justify-center
+    px-6
+  "
+>
           <div className="text-center">
-
-            <h1
-              className="
-              text-6xl
-              font-bold
-              text-white
-              "
-            >
+<h1
+  className="
+    text-3xl
+    md:text-5xl
+    lg:text-6xl
+    font-bold
+    text-white
+  "
+>
               Explore Kenya
             </h1>
 
-            <p
-              className="
-              text-white
-              text-xl
-              mt-4
-              "
-            >Discover amazing destinations, book unforgettable experiences,
+           <p
+  className="
+    text-sm
+    md:text-lg
+    lg:text-xl
+    mt-4
+    text-white
+    max-w-4xl
+  "
+>Discover amazing destinations, book unforgettable experiences,
   connect with trusted local businesses, and explore the beauty of Kenya.
             </p>
 
           </div>
         </div>
+      
+      <br></br>
 
-      </section>
 
       {/* DESTINATIONS */}
 
@@ -206,10 +198,31 @@ return (
   ))}
 </div>
 
+{/*Saved Locations*/}
       </section>
+      {favorites.length > 0 && (
+  <section className="px-8 mb-12">
 
+    <HorizontalSection
+      title="Saved Places"
+      items={favorites}
+    />
+
+  </section>
+)}
+        {/*recently viewed*/}
+      </section>
+      {recent.length > 0 && (
+  <section className="px-8 mb-12">
+
+    <HorizontalSection
+      title="Recently Viewed"
+      items={recent}
+    />
+
+  </section>
+)}
     
-
         </div>
   </MainLayout>
 
