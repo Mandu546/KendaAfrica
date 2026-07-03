@@ -3,6 +3,9 @@ import GalleryModal from "../components/GalleryModal";
 import BookingPanel from "../components/BookingPanel";
 import RelatedServices
 from "../components/RelatedServices";
+import ServiceMap
+from "../components/ServiceMap";
+
 
 export default function HotelTemplate({
   service,
@@ -403,32 +406,9 @@ const similarHotels = [
 
 </section>
 {/* LOCATION */}
-<section
-  id="location"
-  className="mb-10"
->
-
-  <h2 className="text-2xl font-bold mb-4">
-    Location
-  </h2>
-
-  <a
-    href={service.location.googleMaps}
-    target="_blank"
-    rel="noreferrer"
-    className="
-      inline-block
-      bg-blue-600
-      text-white
-      px-5
-      py-3
-      rounded-lg
-    "
-  >
-    Open In Google Maps
-  </a>
-
-</section>
+<ServiceMap
+  service={service}
+/>
         {/* NEARBY */}
 <section className="mb-10">
 
@@ -463,6 +443,7 @@ const similarHotels = [
           <h2 className="text-2xl font-bold mb-4">
             Reviews
           </h2>
+
 
           <div className="grid gap-4">
             {service.reviews?.map(

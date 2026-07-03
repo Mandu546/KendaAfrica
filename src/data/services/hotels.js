@@ -101,7 +101,7 @@ export const hotels = [
         distance: "5 km",
       },
     ],
-
+   
     reviews: [
       {
         user: "John",
