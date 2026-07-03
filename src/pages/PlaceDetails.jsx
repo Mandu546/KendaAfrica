@@ -22,7 +22,9 @@ import {
 } from "react-icons/fa";
 
 export default function PlaceDetails() {
+
   const { placeName } = useParams();
+
   const cityHotels = hotels.filter(
   hotel => hotel.city === placeName
 );

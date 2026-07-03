@@ -7,17 +7,24 @@ import {
 import Home from "../pages/Home";
 import PlaceDetails from "../pages/PlaceDetails";
 import ServiceDetails from "../pages/ServiceDetails";
+import SearchResults
+from "../pages/SearchResults";
 
 export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route
+  path="/search"
+  element={<SearchResults />}
+/>
 
         {/* Home Page */}
         <Route
           path="/"
           element={<Home />}
         />
+        
 
         {/* Destination Page */}
         <Route
@@ -33,5 +40,6 @@ export default function AppRoutes() {
 
       </Routes>
     </BrowserRouter>
+    
   );
 }

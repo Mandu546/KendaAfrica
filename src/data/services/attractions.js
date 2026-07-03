@@ -2,6 +2,8 @@ export const attractions = [
   {
     id:1,
 
+      type: "service",
+
    slug:"hells-gate",
 
    city:"naivasha",

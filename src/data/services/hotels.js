@@ -2,6 +2,8 @@ export const hotels = [
   {
     id: 1,
 
+      type: "service",
+
     slug: "enashipai-resort",
 
     city: "naivasha",

@@ -1,9 +1,14 @@
-import { Link } from "react-router-dom";
 import { FaUserCircle, FaCog, FaSearch } from "react-icons/fa";
 import MainLayout from "../layouts/MainLayout";
 import useFavorites from "../hooks/useFavorites";
 import useRecent from "../hooks/useRecent";
 import HorizontalSection from "../components/HorizontalSection";
+import { useState } from "react";
+import searchData from "../data/searchData";
+import useSearchHistory
+from "../hooks/useSearchHistory";
+import { Link, useNavigate }
+from "react-router-dom";
 
 import nairobiImg from "../assets/image/cities/nairobi.jpg";
 import mombasaImg from "../assets/image/cities/mombasa.jpg";
@@ -18,14 +23,62 @@ import cities from "../data/cities";
 
 export default function Home() {
 
-const { favorites } = useFavorites();
+  const { favorites } = useFavorites();
 
-const { recent } = useRecent();
+  const { recent } = useRecent();
+  
+  const [search, setSearch] =
+  useState("");
+
+  const [showSearch, setShowSearch] =
+  useState(false);
 
 
-console.log(nairobiImg);
-console.log(cities);
-return (
+  const {
+  history,
+  addSearch,
+  clearHistory,
+} = useSearchHistory();
+
+const navigate =
+  useNavigate();
+
+const filteredResults =
+  search.length === 0
+    ? []
+    : searchData
+        .filter((item) =>
+          (
+            item.name +
+            " " +
+            (item.description || "")
+          )
+            .toLowerCase()
+            .includes(
+              search.toLowerCase()
+            )
+        )
+        .slice(0, 8);
+
+
+  console.log(nairobiImg);
+  console.log(cities);
+  const handleSearch = (
+  e
+) => {
+
+  if (e.key === "Enter") {
+
+    addSearch(search);
+
+    setShowSearch(false);
+
+    navigate(
+      `/search?q=${search}`
+    );
+  }
+};
+  return (
   <MainLayout>
     <div className="bg-[#EEF7E8]">
 
@@ -63,18 +116,138 @@ return (
           <FaSearch
             className="absolute left-4 top-4 text-gray-500"
           />
+<input
+  type="text"
+  value={search}
+  onChange={(e) =>
+    setSearch(e.target.value)
+  }
+  onFocus={() =>
+    setShowSearch(true)
+  }
+  placeholder="
+    Search destinations,
+    hotels,
+    attractions...
+  "
+  className="
+    w-full
+    py-3
+    pl-12
+    rounded-full
+    border
+  "
+/>
+{/* SEARCH HISTORY */}
+{showSearch &&
+ search.length === 0 &&
+ history.length > 0 && (
+    <div
+      className="
+        absolute
+        top-full
+        left-0
+        right-0
+        bg-white
+        rounded-xl
+        shadow-xl
+        mt-2
+        z-50
+      "
+    >
+      <div
+        className="
+          flex
+          justify-between
+          px-4
+          py-3
+          border-b
+        "
+      >
+        <span className="font-bold">
+          Recent Searches
+        </span>
 
-          <input
-            type="text"
-            placeholder="Search destinations, hotels, attractions..."
-            className="
-            w-full
+        <button
+          onClick={clearHistory}
+          className="text-red-500"
+        >
+          Clear
+        </button>
+      </div>
+
+      {history.map((item) => (
+        <div
+          key={item}
+          onClick={() =>
+            setSearch(item)
+          }
+          className="
+            px-4
             py-3
-            pl-12
-            rounded-full
-            border
-            "
-          />
+            cursor-pointer
+            hover:bg-gray-100
+          "
+        >
+          {item}
+        </div>
+      ))}
+    </div>
+)}
+
+
+{/* SEARCH RESULTS */}
+{showSearch &&
+ filteredResults.length > 0 && (
+  <div
+    className="
+      absolute
+      top-full
+      left-0
+      right-0
+      bg-white
+      rounded-xl
+      shadow-xl
+      mt-2
+      overflow-hidden
+      z-50
+    "
+  >
+    {filteredResults.map((item) => (
+      <Link
+        key={item.id || item.name}
+        
+       to={
+  item.type === "city"
+    ? `/place/${item.slug}`
+    : `/service/${item.city}/${item.category}/${item.slug}`
+}
+        onClick={() => 
+       {
+          addSearch(item.name);
+
+           setSearch("");
+
+          setShowSearch(false);
+        }} 
+        className="
+          block
+          px-4
+          py-3
+          hover:bg-gray-100
+        "
+      >
+        <div className="font-semibold">
+          {item.name}
+        </div>
+
+        <div className="text-sm text-gray-500">
+          {item.description}
+        </div>
+      </Link>
+    ))}
+  </div>
+)}
         </div>
 
         <div className="flex gap-5 text-2xl text-[#3D4F2B]">

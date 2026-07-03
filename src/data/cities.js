@@ -11,6 +11,7 @@ import malindiImg from "../assets/image/cities/malindi.jpg";
 const cities = [
   {
     id: 1,
+    type: "city",
     name: "Nairobi",
     description: "Kenya's vibrant capital city.",
     image: nairobiImg,
@@ -19,6 +20,7 @@ const cities = [
 
   {
     id: 2,
+    type: "city",
     name: "Mombasa",
     description: "Historic coastal city with beautiful beaches.",
     image: mombasaImg,
@@ -27,6 +29,7 @@ const cities = [
 
   {
     id: 3,
+    type: "city",
     name: "Naivasha",
     description: "Beautiful freshwater lake destination.",
     image: naivashaImg,
@@ -35,6 +38,7 @@ const cities = [
 
   {
     id: 4,
+    type: "city",
     name: "Nakuru",
     description: "Home to flamingos and wildlife.",
     image: nakuruImg,
@@ -43,6 +47,7 @@ const cities = [
 
   {
     id: 5,
+    type: "city",
     name: "Kisumu",
     description: "Largest city on Lake Victoria.",
     image: kisumuImg,
@@ -51,6 +56,7 @@ const cities = [
 
   {
     id: 6,
+    type: "city",
     name: "Diani",
     description: "Famous white sand beach destination.",
     image: dianiImg,
@@ -59,6 +65,7 @@ const cities = [
 
   {
     id: 7,
+    type: "city",
     name: "Nanyuki",
     description: "Gateway to Mount Kenya.",
     image: nanyukiImg,
@@ -67,6 +74,7 @@ const cities = [
 
   {
     id: 8,
+    type: "city",
     name: "Eldoret",
     description: "Kenya's athletics capital.",
     image: eldoretImg,
@@ -75,10 +83,12 @@ const cities = [
 
   {
     id: 9,
+    type: "city",
     name: "Malindi",
     description: "Historic coastal tourism town.",
     image: malindiImg,
     slug: "malindi",
+    
   },
 ];
 
